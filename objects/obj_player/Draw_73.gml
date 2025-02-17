@@ -1,0 +1,2 @@
+draw_set_color(c_black);
+draw_text(0, 0, "z: " + string(z) + "\nz_ground: " + string(z_ground) + "\ny: " + string(y));
