@@ -27,6 +27,11 @@ if (state == "stairs"){
 	repeat(abs(walk_speed * _xsign)){
 		if (place_meeting(bbox_left + _xsign, y, obj_stairs) || place_meeting(bbox_right + _xsign, y, obj_stairs)){
 			x += _xsign;	
+			z += _xsign * 0.5;
+			z_ground += (_xsign * 0.5);
+		}else{
+			show_debug_message("setting state to regular")
+			state = "regular";	
 		}
 	}
 }
