@@ -1,4 +1,3 @@
-// These variables check for inputs! They're used throughout this script.
 left     = keyboard_check(vk_left)  or keyboard_check(ord("A"));
 right    = keyboard_check(vk_right) or keyboard_check(ord("D"));
 up       = keyboard_check(vk_up)    or keyboard_check(ord("W"));
@@ -19,8 +18,6 @@ if (!climbing){
 	}else{
 		show_climb_button = false;	
 	}
-}else{
-	
 }
 
 if (climbing){
@@ -34,24 +31,15 @@ if (climbing){
 	var _ysign = down - up;
 	
 	repeat(abs(walk_speed * _ysign)){
-		if (place_meeting(x, y + _ysign, obj_ladder)){
-			//y += _ysign;
+		//if (place_meeting(x, y + _ysign, obj_ladder)){
+		if (place_meeting(x, y - z, obj_ladder)){
 			z -= (_ysign);
 			depth = -y - z_ground;
-			//-lerp(0, 64, (y - _ladder.y) / 64);
 		}else{
 			climbing = false;
-			//y += (z_ground / 2);
-			//depth = -y - z_ground;
 			exit;
 		}
 	}
-	
-	//var _block = instance_position(x, y, obj_block);
-	//if (_block != noone){
-	//	z = _block.height;
-	//	z_ground = z;
-	//}
 	
 	exit;
 }
@@ -128,8 +116,7 @@ repeat(abs(walk_speed * (down - up)))
     }
 
     // If the previous checks still allow our player to move, then do it!
-    if can_move == true
-        y += (down - up);
+    if can_move y += (down - up);
 }
 
 // If the user is pressing the JUMP BUTTON and our player is on the ground,
