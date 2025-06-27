@@ -56,6 +56,7 @@
     {"id":{"name":"spr_player_old","path":"sprites/spr_player_old/spr_player_old.yy",},},
     {"id":{"name":"spr_player_shadow","path":"sprites/spr_player_shadow/spr_player_shadow.yy",},},
     {"id":{"name":"spr_player","path":"sprites/spr_player/spr_player.yy",},},
+    {"id":{"name":"spr_slope","path":"sprites/spr_slope/spr_slope.yy",},},
     {"id":{"name":"spr_stairs_mask","path":"sprites/spr_stairs_mask/spr_stairs_mask.yy",},},
     {"id":{"name":"spr_stairs","path":"sprites/spr_stairs/spr_stairs.yy",},},
   ],

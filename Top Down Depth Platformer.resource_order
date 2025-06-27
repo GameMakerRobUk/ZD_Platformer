@@ -33,6 +33,7 @@
     {"name":"spr_player_old","order":3,"path":"sprites/spr_player_old/spr_player_old.yy",},
     {"name":"spr_player_shadow","order":2,"path":"sprites/spr_player_shadow/spr_player_shadow.yy",},
     {"name":"spr_player","order":4,"path":"sprites/spr_player/spr_player.yy",},
+    {"name":"spr_slope","order":10,"path":"sprites/spr_slope/spr_slope.yy",},
     {"name":"spr_stairs_mask","order":8,"path":"sprites/spr_stairs_mask/spr_stairs_mask.yy",},
     {"name":"spr_stairs","order":7,"path":"sprites/spr_stairs/spr_stairs.yy",},
   ],
