@@ -4,7 +4,7 @@ up       = keyboard_check(vk_up)    or keyboard_check(ord("W"));
 down     = keyboard_check(vk_down)  or keyboard_check(ord("S"));
 jump     = keyboard_check_pressed(vk_space);
 
-if (!climbing){
+if (state == "regular"){
 	//Ladders
 	var _ladder = collision_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, obj_ladder, false, true);
 
@@ -12,7 +12,9 @@ if (!climbing){
 		show_climb_button = true;
 		
 		if (keyboard_check_pressed(ord("E"))){
-			climbing = true;	
+			//climbing = true;	
+			state = "climbing";
+			exit;
 			//z_ground = _ladder.height;
 		}
 	}else{
@@ -20,7 +22,16 @@ if (!climbing){
 	}
 }
 
-if (climbing){
+if (state == "stairs"){
+	var _xsign = right - left;
+	repeat(abs(walk_speed * _xsign)){
+		if (place_meeting(bbox_left + _xsign, y, obj_stairs) || place_meeting(bbox_right + _xsign, y, obj_stairs)){
+			x += _xsign;	
+		}
+	}
+}
+
+if (state == "climbing"){
 	var _xsign = right - left;
 	repeat(abs(walk_speed * _xsign)){
 		if (place_meeting(bbox_left + _xsign, y, obj_ladder) && place_meeting(bbox_right + _xsign, y, obj_ladder)){
@@ -36,7 +47,9 @@ if (climbing){
 			z -= (_ysign);
 			depth = -y - z_ground;
 		}else{
-			climbing = false;
+			//climbing = false;
+			show_debug_message("setting state to regular")
+			state = "regular";
 			exit;
 		}
 	}
@@ -47,71 +60,73 @@ if (climbing){
 // To ensure pixel-perfect collision, we repeat this code as many times as there
 // are pixels in the movement.
 // This checks for left/right.
-repeat(abs(walk_speed * (right - left)))
-{
-    can_move = true;
-    highest_z = 0;
+
+if (state != "stairs"){
+	repeat(abs(walk_speed * (right - left)))
+	{
+	    can_move = true;
+	    highest_z = 0;
     
-    // Here we go through each block, and check if it's height is lower than 
-    // our player's z-value. If it is, then it's walkable, and the player's
-    // "ground" is now at the block's height. 
-    with (obj_block)
-    {
-        if place_meeting(x - (other.right - other.left), y, other)
-            {
-                if other.z >= height
-                {
-                    other.can_move = true;
-                    if height > other.highest_z
-                    {
-                        other.z_ground = height;
-                        other.highest_z = height;   
-                    }
-            }
-            else
-            {
-                other.can_move = false;
-                break;
-            }
+	    // Here we go through each block, and check if it's height is lower than 
+	    // our player's z-value. If it is, then it's walkable, and the player's
+	    // "ground" is now at the block's height. 
+		with (obj_block){
+			if place_meeting(x - (other.right - other.left), y, other){
+				if other.z >= height{
+					other.can_move = true;
+	                if height > other.highest_z{
+						other.z_ground = height;
+						other.highest_z = height;   
+	                }
+	            }else{
+					if (object_index == obj_stairs){
+						show_debug_message("hitting stairs");	
+						other.state = "stairs";
+						exit;
+					}
+					other.can_move = false;
+					break;
+	            }
             
-        }
-    }
+	        }
+	    }
 
-    // If the previous checks still allow our player to move, then do it!
-    if can_move == true
-        x += (right - left);
-}
-
-// To ensure pixel-perfect collision, we repeat this code as many times as there
-// are pixels in the movement.
-// This checks for up/down.
-repeat(abs(walk_speed * (down - up))){
-    can_move = true;
-    highest_z = 0;
-    
-    // Here we go through each block, and check if it's height is lower than 
-    // our player's z-value. If it is, then it's walkable, and the player's
-    // "ground" is now at the block's height. 
-    with (obj_block){
-		if place_meeting(x, y - (other.down - other.up), other){
-			if other.z >= height{
-                other.can_move = true;
-                if height > other.highest_z{
-                    other.z_ground = height;
-                    other.highest_z = height;   
-                }
-			}else{
-				show_debug_message(object_get_name(object_index) + " at " + string(x) + "," + string(y) + " is blocking player movement")
-	            show_debug_message("collision height: " + string(height));
-				show_debug_message("PLAYER highest_z: " + string(other.highest_z) + " | z_ground: " + string(other.z_ground) + " | z: " + string(other.z))
-				other.can_move = false;
-	            break;
-			}
-		}
+	    // If the previous checks still allow our player to move, then do it!
+	    if can_move x += (right - left);
 	}
 
-    // If the previous checks still allow our player to move, then do it!
-    if can_move y += (down - up);
+	// To ensure pixel-perfect collision, we repeat this code as many times as there
+	// are pixels in the movement.
+	// This checks for up/down.
+	repeat(abs(walk_speed * (down - up))){
+	    can_move = true;
+	    highest_z = 0;
+    
+	    // Here we go through each block, and check if it's height is lower than 
+	    // our player's z-value. If it is, then it's walkable, and the player's
+	    // "ground" is now at the block's height. 
+	    with (obj_block){
+			if place_meeting(x, y - (other.down - other.up), other){
+				if other.z >= height{
+	                other.can_move = true;
+	                if height > other.highest_z{
+	                    other.z_ground = height;
+	                    other.highest_z = height;   
+	                }
+				}else{
+					show_debug_message(object_get_name(object_index) + " at " + string(x) + "," + string(y) + " is blocking player movement")
+		            show_debug_message("collision height: " + string(height));
+					show_debug_message("PLAYER highest_z: " + string(other.highest_z) + " | z_ground: " + string(other.z_ground) + " | z: " + string(other.z))
+					other.can_move = false;
+		            break;
+				}
+			}
+		}
+
+	    // If the previous checks still allow our player to move, then do it!
+	    if can_move y += (down - up);
+	}
+
 }
 
 // If the user is pressing the JUMP BUTTON and our player is on the ground,

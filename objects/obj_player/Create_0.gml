@@ -10,5 +10,6 @@ jump_speed = 10;     // The power of the player's jump.
 
 
 show_climb_button = false;
-climbing = false;
+//climbing = false;
 
+state = "regular";
