@@ -1,18 +1,18 @@
 {
   "$GMObject":"",
-  "%Name":"obj_block",
-  "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-  ],
+  "%Name":"obj_block_32",
+  "eventList":[],
   "managed":true,
-  "name":"obj_block",
+  "name":"obj_block_32",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"Blocks",
+    "path":"folders/Objects/Blocks.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"par_block",
+    "path":"objects/par_block/par_block.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -31,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_block",
-    "path":"sprites/spr_block/spr_block.yy",
+    "name":"spr_block_32",
+    "path":"sprites/spr_block_32/spr_block_32.yy",
   },
   "spriteMaskId":null,
   "visible":true,

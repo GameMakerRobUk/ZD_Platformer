@@ -14,6 +14,7 @@ if (state == "regular"){
 		if (keyboard_check_pressed(ord("E"))){
 			//climbing = true;	
 			state = "climbing";
+			lowest_z = z - _ladder.height;
 			exit;
 			//z_ground = _ladder.height;
 		}
@@ -52,10 +53,19 @@ if (state == "climbing"){
 			z -= (_ysign);
 			depth = -y - z_ground;
 		}else{
-			//climbing = false;
-			show_debug_message("setting state to regular")
-			state = "regular";
-			exit;
+			if (place_meeting(x, y, obj_ladder) && _ysign = 1){
+				y += _ysign;
+			}else{
+				if (z < lowest_z){
+					show_debug_message("lowest_z: " + string(lowest_z));
+					z = lowest_z;	
+				}
+				z_ground = z;//(floor(z / 64) * 64)
+				//climbing = false;
+				show_debug_message("setting state to regular")
+				state = "regular";
+				exit;
+			}
 		}
 	}
 	
@@ -66,7 +76,7 @@ if (state == "climbing"){
 // are pixels in the movement.
 // This checks for left/right.
 
-if (state != "stairs"){
+if (state == "regular"){
 	repeat(abs(walk_speed * (right - left)))
 	{
 	    can_move = true;
@@ -75,7 +85,7 @@ if (state != "stairs"){
 	    // Here we go through each block, and check if it's height is lower than 
 	    // our player's z-value. If it is, then it's walkable, and the player's
 	    // "ground" is now at the block's height. 
-		with (obj_block){
+		with (par_block){
 			if place_meeting(x - (other.right - other.left), y, other){
 				if other.z >= height{
 					other.can_move = true;
@@ -110,7 +120,66 @@ if (state != "stairs"){
 	    // Here we go through each block, and check if it's height is lower than 
 	    // our player's z-value. If it is, then it's walkable, and the player's
 	    // "ground" is now at the block's height. 
-	    with (obj_block){
+	    with (par_block){
+			if place_meeting(x, y - (other.down - other.up), other){
+				if other.z >= height{
+	                other.can_move = true;
+	                if height > other.highest_z{
+	                    other.z_ground = height;
+	                    other.highest_z = height;   
+	                }
+				}else{
+					show_debug_message(object_get_name(object_index) + " at " + string(x) + "," + string(y) + " is blocking player movement")
+		            show_debug_message("collision height: " + string(height));
+					show_debug_message("PLAYER highest_z: " + string(other.highest_z) + " | z_ground: " + string(other.z_ground) + " | z: " + string(other.z))
+					other.can_move = false;
+		            break;
+				}
+			}
+		}
+
+	    // If the previous checks still allow our player to move, then do it!
+	    if can_move y += (down - up);
+	}
+
+}
+	
+if (state == "climbing"){
+	repeat(abs(walk_speed * (right - left)))
+	{
+	    can_move = true;
+	    highest_z = 0;
+    
+	    // Here we go through each block, and check if it's height is lower than 
+	    // our player's z-value. If it is, then it's walkable, and the player's
+	    // "ground" is now at the block's height. 
+		with (obj_ladder){
+			if place_meeting(x - (other.right - other.left), y, other){
+				if other.z >= height{
+					other.can_move = true;
+	                if height > other.highest_z{
+						other.z_ground = height;
+						other.highest_z = height;   
+	                }
+	            }
+	        }
+	    }
+
+	    // If the previous checks still allow our player to move, then do it!
+	    if can_move x += (right - left);
+	}
+
+	// To ensure pixel-perfect collision, we repeat this code as many times as there
+	// are pixels in the movement.
+	// This checks for up/down.
+	repeat(abs(walk_speed * (down - up))){
+	    can_move = true;
+	    highest_z = 0;
+    
+	    // Here we go through each block, and check if it's height is lower than 
+	    // our player's z-value. If it is, then it's walkable, and the player's
+	    // "ground" is now at the block's height. 
+	    with (obj_ladder){
 			if place_meeting(x, y - (other.down - other.up), other){
 				if other.z >= height{
 	                other.can_move = true;
@@ -152,7 +221,7 @@ if z <= z_ground
 }
 
 // If not on a block, then set the ground back to the floor.
-if !place_meeting(x, y, obj_block)
+if !place_meeting(x, y, par_block)
     z_ground = 0;
     
 // These cool lines keep the player inside of the room. Save this one, it's a good one!

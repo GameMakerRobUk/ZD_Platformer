@@ -1,15 +1,13 @@
 {
   "$GMObject":"",
-  "%Name":"obj_stairs",
-  "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-  ],
+  "%Name":"obj_block_96",
+  "eventList":[],
   "managed":true,
-  "name":"obj_stairs",
+  "name":"obj_block_96",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"Blocks",
+    "path":"folders/Objects/Blocks.yy",
   },
   "parentObjectId":{
     "name":"par_block",
@@ -19,7 +17,7 @@
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
   "physicsFriction":0.2,
-  "physicsGroup":1,
+  "physicsGroup":0,
   "physicsKinematic":false,
   "physicsLinearDamping":0.1,
   "physicsObject":false,
@@ -33,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_stairs",
-    "path":"sprites/spr_stairs/spr_stairs.yy",
+    "name":"spr_block_96",
+    "path":"sprites/spr_block_96/spr_block_96.yy",
   },
   "spriteMaskId":null,
   "visible":true,
