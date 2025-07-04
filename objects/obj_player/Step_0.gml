@@ -6,7 +6,7 @@ jump     = keyboard_check_pressed(vk_space);
 
 if (state == "regular"){
 	//Ladders
-	var _ladder = collision_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, obj_ladder, false, true);
+	var _ladder = collision_ladder();
 
 	if (_ladder != noone){
 		show_climb_button = true;
