@@ -23,16 +23,35 @@ if (state == "regular"){
 	}
 }
 
-if (state == "stairs"){
+if (state == "slope"){
 	var _xsign = right - left;
 	repeat(abs(walk_speed * _xsign)){
-		if (place_meeting(bbox_left + _xsign, y, obj_stairs) || place_meeting(bbox_right + _xsign, y, obj_stairs)){
+		if (place_meeting(bbox_left + _xsign, y, obj_slope) || place_meeting(bbox_right + _xsign, y, obj_slope)){
 			x += _xsign;	
-			z = clamp(z + (_xsign * 0.5), 0, current_stairs.height);
+			//if (_xsign == 1){
+				z = clamp(z + (_xsign * 0.5), 0, current_slope.height);
+			//}//}else{
+			//	z = clamp(z - (_xsign * 0.5), 0, current_slope.height);
+			//}
 			z_ground = z;
 			//z_ground += (_xsign * 0.5);
+			
+			//Exit slope
+			if (_xsign == 1){
+				if (bbox_left > current_slope.bbox_right){
+					state = "regular";
+					exit;
+				}
+			}
+			if (_xsign == -1){
+				if (bbox_right < current_slope.bbox_left){
+					state = "regular";
+					exit;
+				}
+			}
+			
 		}else{
-			show_debug_message("setting state to regular from stairs")
+			show_debug_message("setting state to regular from slope")
 			state = "regular";	
 		}
 	}
@@ -93,8 +112,16 @@ if (state == "regular"){
 	    // Here we go through each block, and check if it's height is lower than 
 	    // our player's z-value. If it is, then it's walkable, and the player's
 	    // "ground" is now at the block's height. 
+		
+		
 		with (par_block){
 			if place_meeting(x - (other.right - other.left), y, other){
+				if (object_index == obj_slope){
+					show_debug_message("hitting slope");
+					other.current_slope = id;
+					other.state = "slope";
+					exit;
+				}
 				if other.z >= height{
 					other.can_move = true;
 	                if height > other.highest_z{
@@ -102,12 +129,12 @@ if (state == "regular"){
 						other.highest_z = height;   
 	                }
 	            }else{
-					if (object_index == obj_stairs){
-						show_debug_message("hitting stairs");
-						other.current_stairs = id;
-						other.state = "stairs";
-						exit;
-					}
+					//if (object_index == obj_slope){
+					//	show_debug_message("hitting slope");
+					//	other.current_slope = id;
+					//	other.state = "slope";
+					//	exit;
+					//}
 					other.can_move = false;
 					break;
 	            }
@@ -175,10 +202,9 @@ if !place_meeting(x, y, par_block)
 x = min(max(x, 0 + sprite_xoffset), room_width + sprite_xoffset - sprite_width);
 y = min(max(y, 0 + sprite_yoffset), room_height + sprite_yoffset - sprite_height);
 
-// This is for aesthetics. It puts our player in the correct depth.
-// This is a magic script! Used very often in topdown games.
+//Depth
 depth = -y - z_ground;
 
-if (current_stairs != noone && state == "stairs"){
-	depth = current_stairs.depth - 1;	
+if (current_slope != noone && state == "slope"){
+	depth = current_slope.depth - 1;	
 }
