@@ -19,7 +19,7 @@ function collision_ladder(){
 	var _ladder_zbox = noone;
 	
 	with (obj_ladder){
-		if (height != other.z) continue;
+		//if (height != other.z) continue;
 		var _result = rectangle_in_rectangle(_zbox.left, _zbox.top, _zbox.right, _zbox.bottom, bbox_left, bbox_top, bbox_right, bbox_bottom);
 		if (_result > 0){
 			_ladder_zbox = id;

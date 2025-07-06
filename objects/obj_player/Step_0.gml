@@ -14,7 +14,10 @@ if (state == "regular"){
 		if (keyboard_check_pressed(ord("E"))){
 			//climbing = true;	
 			state = "climbing";
-			lowest_z = z - _ladder.height;
+			lowest_z = _ladder.ground;
+			current_ladder = _ladder;
+			current_ladder.mount_y = y;
+			show_debug_message("Mounting ladder | " + string({lowest_z : lowest_z, z : z, z_ground : z_ground, y : y, state : state}))
 			exit;
 			//z_ground = _ladder.height;
 		}
@@ -31,7 +34,7 @@ if (state == "stairs"){
 			z += _xsign * 0.5;
 			z_ground += (_xsign * 0.5);
 		}else{
-			show_debug_message("setting state to regular")
+			show_debug_message("setting state to regular from stairs")
 			state = "regular";	
 		}
 	}
@@ -56,14 +59,38 @@ if (state == "climbing"){
 			if (place_meeting(x, y, obj_ladder) && _ysign = 1){
 				y += _ysign;
 			}else{
-				if (z < lowest_z){
-					show_debug_message("lowest_z: " + string(lowest_z));
-					z = lowest_z;	
+				//if (z < lowest_z){
+					//show_debug_message("lowest_z: " + string(lowest_z));
+					//z = lowest_z;	
+					//z += 10; //so they will hopefully dismount properly
+					//y += 10;
+				//}
+				//z_ground = z;//(floor(z / 64) * 64)
+				
+				if (_ysign == 1){
+					show_debug_message("y: " + string(y) + " | mount_y: " + string(current_ladder.mount_y));
+					while (y != current_ladder.mount_y){
+						y += sign(current_ladder.mount_y - y);	
+					}
+					show_debug_message("_ysign == 1")
+					z = lowest_z;
 				}
-				z_ground = z;//(floor(z / 64) * 64)
-				//climbing = false;
-				show_debug_message("setting state to regular")
+				z_ground = z;
+				
+				show_debug_message("Dismounting ladder | " + string({lowest_z : lowest_z, z : z, z_ground : z_ground, y : y, state : state}))
+				
+				//with (collision_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, par_block, false, false)){
+				//	if height > other.highest_z{
+				//		show_debug_message("height : " + string(height) + " | other.highest_z: " + string(other.highest_z))
+				//		other.z_ground = height;
+				//		other.highest_z = height;  
+				//		other.z = other.z_ground;
+	            //    }
+				//}
+
+				show_debug_message("setting state to regular from climbing")
 				state = "regular";
+
 				exit;
 			}
 		}
@@ -129,9 +156,9 @@ if (state == "regular"){
 	                    other.highest_z = height;   
 	                }
 				}else{
-					show_debug_message(object_get_name(object_index) + " at " + string(x) + "," + string(y) + " is blocking player movement")
-		            show_debug_message("collision height: " + string(height));
-					show_debug_message("PLAYER highest_z: " + string(other.highest_z) + " | z_ground: " + string(other.z_ground) + " | z: " + string(other.z))
+					//show_debug_message(object_get_name(object_index) + " at " + string(x) + "," + string(y) + " is blocking player movement")
+		            //show_debug_message("collision height: " + string(height));
+					//show_debug_message("PLAYER highest_z: " + string(other.highest_z) + " | z_ground: " + string(other.z_ground) + " | z: " + string(other.z))
 					other.can_move = false;
 		            break;
 				}
@@ -188,6 +215,7 @@ if (state == "climbing"){
 	                    other.highest_z = height;   
 	                }
 				}else{
+					show_debug_message("one")
 					show_debug_message(object_get_name(object_index) + " at " + string(x) + "," + string(y) + " is blocking player movement")
 		            show_debug_message("collision height: " + string(height));
 					show_debug_message("PLAYER highest_z: " + string(other.highest_z) + " | z_ground: " + string(other.z_ground) + " | z: " + string(other.z))

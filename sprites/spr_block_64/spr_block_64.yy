@@ -23,7 +23,7 @@
   ],
   "name":"spr_block_64",
   "nineSlice":null,
-  "origin":9,
+  "origin":6,
   "parent":{
     "name":"Blocks",
     "path":"folders/Sprites/Blocks.yy",
