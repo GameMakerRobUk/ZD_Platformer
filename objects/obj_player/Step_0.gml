@@ -53,6 +53,12 @@ if (state == "slope"){
 			state = "regular";	
 		}
 	}
+	
+	var _ysign = down - up;
+	
+	repeat (abs(walk_speed * _ysign)){
+		y += _ysign;
+	}
 }
 
 if (state == "climbing"){
