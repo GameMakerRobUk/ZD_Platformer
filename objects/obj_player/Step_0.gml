@@ -28,8 +28,9 @@ if (state == "stairs"){
 	repeat(abs(walk_speed * _xsign)){
 		if (place_meeting(bbox_left + _xsign, y, obj_stairs) || place_meeting(bbox_right + _xsign, y, obj_stairs)){
 			x += _xsign;	
-			z += _xsign * 0.5;
-			z_ground += (_xsign * 0.5);
+			z = clamp(z + (_xsign * 0.5), 0, current_stairs.height);
+			z_ground = z;
+			//z_ground += (_xsign * 0.5);
 		}else{
 			show_debug_message("setting state to regular from stairs")
 			state = "regular";	
@@ -102,7 +103,8 @@ if (state == "regular"){
 	                }
 	            }else{
 					if (object_index == obj_stairs){
-						show_debug_message("hitting stairs");	
+						show_debug_message("hitting stairs");
+						other.current_stairs = id;
 						other.state = "stairs";
 						exit;
 					}
@@ -176,3 +178,7 @@ y = min(max(y, 0 + sprite_yoffset), room_height + sprite_yoffset - sprite_height
 // This is for aesthetics. It puts our player in the correct depth.
 // This is a magic script! Used very often in topdown games.
 depth = -y - z_ground;
+
+if (current_stairs != noone && state == "stairs"){
+	depth = current_stairs.depth - 1;	
+}

@@ -13,3 +13,4 @@ show_climb_button = false;
 //climbing = false;
 
 state = "regular";
+current_stairs = noone;
