@@ -28,13 +28,11 @@ if (state == "slope"){
 	repeat(abs(walk_speed * _xsign)){
 		if (place_meeting(bbox_left + _xsign, y, obj_slope) || place_meeting(bbox_right + _xsign, y, obj_slope)){
 			x += _xsign;	
-			//if (_xsign == 1){
+			
+			if (x > current_slope.bbox_left && x < current_slope.bbox_right){
 				z = clamp(z + (_xsign * 0.5), 0, current_slope.height);
-			//}//}else{
-			//	z = clamp(z - (_xsign * 0.5), 0, current_slope.height);
-			//}
-			z_ground = z;
-			//z_ground += (_xsign * 0.5);
+				z_ground = z;
+			}
 			
 			//Exit slope
 			if (_xsign == 1){
