@@ -58,6 +58,23 @@ if (state == "slope"){
 	
 	repeat (abs(walk_speed * _ysign)){
 		y += _ysign;
+		
+		var _on_slope = false;
+		//Check if we're still on the slope
+		for (var i = 0; i < array_length(current_slope.my_triangles); i ++){
+			var _coords = current_slope.my_triangles[i];
+			
+			if (point_in_triangle(x, y - z, _coords.x1, _coords.y1, _coords.x2, _coords.y2, _coords.x3, _coords.y3)){
+				_on_slope = true;
+				break;
+			}
+		}
+		
+		if (!_on_slope){
+			show_debug_message("no longer on slope");
+			state = "regular";
+			z_ground = 0; //@Rob this might need to be updated for slopes on higher planes
+		}
 	}
 }
 
@@ -199,8 +216,12 @@ if z <= z_ground
 }
 
 // If not on a block, then set the ground back to the floor.
-if !place_meeting(x, y, par_block)
+//if !place_meeting(x, y, par_block)
+//    z_ground = 0;
+
+if (state != "slope" && !place_meeting(x, y, par_block)){
     z_ground = 0;
+}
     
 // These cool lines keep the player inside of the room. Save this one, it's a good one!
 x = min(max(x, 0 + sprite_xoffset), room_width + sprite_xoffset - sprite_width);
