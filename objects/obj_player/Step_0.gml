@@ -16,7 +16,7 @@ if (state == "regular"){
 			state = "climbing";
 			lowest_z = _ladder.ground;
 			current_ladder = _ladder;
-			current_ladder.mount_y = y;
+			//current_ladder.mount_y = y;
 			show_debug_message("Mounting ladder | " + string({lowest_z : lowest_z, z : z, z_ground : z_ground, y : y, state : state}))
 			exit;
 			//z_ground = _ladder.height;
@@ -68,9 +68,9 @@ if (state == "climbing"){
 				//z_ground = z;//(floor(z / 64) * 64)
 				
 				if (_ysign == 1){
-					show_debug_message("y: " + string(y) + " | mount_y: " + string(current_ladder.mount_y));
-					while (y != current_ladder.mount_y){
-						y += sign(current_ladder.mount_y - y);	
+					show_debug_message("y: " + string(y) + " | bottom_dismount_y: " + string(current_ladder.bottom_dismount_y));
+					while (y != current_ladder.bottom_dismount_y){
+						y += sign(current_ladder.bottom_dismount_y - y);	
 					}
 					show_debug_message("_ysign == 1")
 					z = lowest_z;
