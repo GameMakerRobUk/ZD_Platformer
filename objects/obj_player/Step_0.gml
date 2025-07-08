@@ -29,14 +29,24 @@ if (state == "slope"){
 		if (place_meeting(bbox_left + _xsign, y, obj_slope) || place_meeting(bbox_right + _xsign, y, obj_slope)){
 			x += _xsign;	
 			
-			if (x > current_slope.bbox_left && x < current_slope.bbox_right){
-				z = clamp(z + (_xsign * 0.5), 0, current_slope.height);
-				z_ground = z;
-			}
+			//if (x >= current_slope.bbox_left && x <= current_slope.bbox_right){
+				//z = clamp(z + (_xsign * 0.5), 0, current_slope.height);
+				//z_ground = z;
+			//}
+			//Calculate z based on player x position relative to slope
+			var _x_diff = (x - current_slope.x);
+			var _x_perc = _x_diff / sprite_get_width(current_slope.sprite_index);
+			var _z = clamp(current_slope.height * _x_perc, 0, current_slope.height);
+			
+			show_debug_message("_x_diff: " + string(_x_diff) + " | _x_perc: " + string(_x_perc) + " | _z: " + string(_z));
+			
+			z = current_slope.ground + _z;
+			z_ground = z;
 			
 			//Exit slope
 			if (_xsign == 1){
 				if (bbox_left > current_slope.bbox_right){
+					show_debug_message("exiting slope moving right")
 					state = "regular";
 					exit;
 				}
@@ -44,6 +54,7 @@ if (state == "slope"){
 			if (_xsign == -1){
 				if (bbox_right < current_slope.bbox_left){
 					state = "regular";
+					z = ceil(z);
 					exit;
 				}
 			}
@@ -150,12 +161,6 @@ if (state == "regular"){
 						other.highest_z = height;   
 	                }
 	            }else{
-					//if (object_index == obj_slope){
-					//	show_debug_message("hitting slope");
-					//	other.current_slope = id;
-					//	other.state = "slope";
-					//	exit;
-					//}
 					other.can_move = false;
 					break;
 	            }
@@ -222,10 +227,6 @@ if z <= z_ground
 if (state != "slope" && !place_meeting(x, y, par_block)){
     z_ground = 0;
 }
-    
-// These cool lines keep the player inside of the room. Save this one, it's a good one!
-x = min(max(x, 0 + sprite_xoffset), room_width + sprite_xoffset - sprite_width);
-y = min(max(y, 0 + sprite_yoffset), room_height + sprite_yoffset - sprite_height);
 
 //Depth
 depth = -y - z_ground;

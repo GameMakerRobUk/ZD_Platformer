@@ -1,6 +1,8 @@
 event_inherited();
 //mask_index = spr_stairs_mask,
 
+ground = 0;
+
 my_triangles = [
 { 
 	x1 : x, y1 : y,
