@@ -1,13 +1,15 @@
 {
   "$GMObject":"",
-  "%Name":"par_slope",
-  "eventList":[],
+  "%Name":"obj_block_32_tall",
+  "eventList":[
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+  ],
   "managed":true,
-  "name":"par_slope",
+  "name":"obj_block_32_tall",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"Blocks",
+    "path":"folders/Objects/Blocks.yy",
   },
   "parentObjectId":{
     "name":"par_block",
@@ -17,7 +19,7 @@
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
   "physicsFriction":0.2,
-  "physicsGroup":1,
+  "physicsGroup":0,
   "physicsKinematic":false,
   "physicsLinearDamping":0.1,
   "physicsObject":false,
@@ -30,7 +32,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"spr_block_32_tall",
+    "path":"sprites/spr_block_32_tall/spr_block_32_tall.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }

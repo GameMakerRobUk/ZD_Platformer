@@ -13,8 +13,8 @@
     "path":"folders/Objects.yy",
   },
   "parentObjectId":{
-    "name":"par_block",
-    "path":"objects/par_block/par_block.yy",
+    "name":"par_slope",
+    "path":"objects/par_slope/par_slope.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,

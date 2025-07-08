@@ -26,7 +26,7 @@ if (state == "regular"){
 if (state == "slope"){
 	var _xsign = right - left;
 	repeat(abs(walk_speed * _xsign)){
-		if (place_meeting(bbox_left + _xsign, y, obj_slope) || place_meeting(bbox_right + _xsign, y, obj_slope)){
+		if (place_meeting(bbox_left + _xsign, y, par_slope) || place_meeting(bbox_right + _xsign, y, par_slope)){
 			x += _xsign;	
 			
 			//Calculate z based on player x position relative to slope
@@ -144,7 +144,7 @@ if (state == "regular"){
 		
 		with (par_block){
 			if place_meeting(x - (other.right - other.left), y, other){
-				if (object_index == obj_slope){
+				if (object_get_parent(object_index) == par_slope){
 					show_debug_message("hitting slope");
 					other.current_slope = id;
 					other.state = "slope";
@@ -214,6 +214,22 @@ if z <= z_ground
 {
     z = z_ground;
     z_speed = 0;
+	
+	#region Lame Slope check code
+	
+	if (place_meeting(x, y, par_slope)){
+		show_debug_message(state + " colliding with slope");
+		show_debug_message("x: " + string(x) + ", y: " + string(y));
+		
+		if (state == "regular"){
+			//var _slope = instance_place(x, y, par_slope);
+			while (place_meeting(x, y, par_slope)){
+				y ++;
+			}
+		}
+	}
+	
+	#endregion
 }
 
 // If not on a block, then set the ground back to the floor.
