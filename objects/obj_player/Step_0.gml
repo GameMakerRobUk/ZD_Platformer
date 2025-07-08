@@ -34,7 +34,7 @@ if (state == "slope"){
 			var _x_perc = _x_diff / sprite_get_width(current_slope.sprite_index);
 			var _z = clamp(current_slope.height * _x_perc, current_slope.ground, current_slope.height);
 			
-			show_debug_message("_x_diff: " + string(_x_diff) + " | _x_perc: " + string(_x_perc) + " | _z: " + string(_z));
+			//show_debug_message("_x_diff: " + string(_x_diff) + " | _x_perc: " + string(_x_perc) + " | _z: " + string(_z));
 			
 			z = current_slope.ground + _z;
 			z_ground = z;
@@ -201,9 +201,10 @@ if (state == "regular"){
 
 // If the user is pressing the JUMP BUTTON and our player is on the ground,
 // then do a jump!
-if jump
-and z = z_ground
+if (jump && z == z_ground){
+	show_debug_message("Jumping")
     z_speed = jump_speed;
+}
     
 // The next few checks regulate speed and gravity along the z-axis.
 z += z_speed;
@@ -218,8 +219,8 @@ if z <= z_ground
 	#region Lame Slope check code
 	
 	if (place_meeting(x, y, par_slope)){
-		show_debug_message(state + " colliding with slope");
-		show_debug_message("x: " + string(x) + ", y: " + string(y));
+		//show_debug_message(state + " colliding with slope");
+		//show_debug_message("x: " + string(x) + ", y: " + string(y));
 		
 		if (state == "regular"){
 			//var _slope = instance_place(x, y, par_slope);
