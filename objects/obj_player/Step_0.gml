@@ -29,14 +29,10 @@ if (state == "slope"){
 		if (place_meeting(bbox_left + _xsign, y, obj_slope) || place_meeting(bbox_right + _xsign, y, obj_slope)){
 			x += _xsign;	
 			
-			//if (x >= current_slope.bbox_left && x <= current_slope.bbox_right){
-				//z = clamp(z + (_xsign * 0.5), 0, current_slope.height);
-				//z_ground = z;
-			//}
 			//Calculate z based on player x position relative to slope
 			var _x_diff = (x - current_slope.x);
 			var _x_perc = _x_diff / sprite_get_width(current_slope.sprite_index);
-			var _z = clamp(current_slope.height * _x_perc, 0, current_slope.height);
+			var _z = clamp(current_slope.height * _x_perc, current_slope.ground, current_slope.height);
 			
 			show_debug_message("_x_diff: " + string(_x_diff) + " | _x_perc: " + string(_x_perc) + " | _z: " + string(_z));
 			
