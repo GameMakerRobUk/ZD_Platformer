@@ -66,16 +66,7 @@ if (state == "slope"){
 	repeat (abs(walk_speed * _ysign)){
 		y += _ysign;
 		
-		var _on_slope = false;
-		//Check if we're still on the slope
-		for (var i = 0; i < array_length(current_slope.my_triangles); i ++){
-			var _coords = current_slope.my_triangles[i];
-			
-			if (point_in_triangle(x, y - z, _coords.x1, _coords.y1, _coords.x2, _coords.y2, _coords.x3, _coords.y3)){
-				_on_slope = true;
-				break;
-			}
-		}
+		var _on_slope = is_on_slope(current_slope)
 		
 		if (!_on_slope){
 			show_debug_message("no longer on slope");
@@ -204,6 +195,7 @@ if (state == "regular"){
 if (jump && z == z_ground){
 	show_debug_message("Jumping")
     z_speed = jump_speed;
+	state = "regular";
 }
     
 // The next few checks regulate speed and gravity along the z-axis.
@@ -219,13 +211,14 @@ if z <= z_ground
 	#region Lame Slope check code
 	
 	if (place_meeting(x, y, par_slope)){
-		//show_debug_message(state + " colliding with slope");
-		//show_debug_message("x: " + string(x) + ", y: " + string(y));
 		
 		if (state == "regular"){
-			//var _slope = instance_place(x, y, par_slope);
-			while (place_meeting(x, y, par_slope)){
-				y ++;
+			var _slope = instance_place(x, y, par_slope);
+			
+			if (!is_on_slope(_slope)){
+				while (place_meeting(x, y, _slope)){
+					y ++;
+				}
 			}
 		}
 	}
