@@ -5,7 +5,9 @@
     {"$GMAudioGroup":"","%Name":"audiogroup_default","name":"audiogroup_default","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
   ],
   "configs":{
-    "children":[],
+    "children":[
+      {"children":[],"name":"DebugOn",},
+    ],
     "name":"Default",
   },
   "defaultScriptType":1,
@@ -56,8 +58,10 @@
     {"id":{"name":"par_slope","path":"objects/par_slope/par_slope.yy",},},
     {"id":{"name":"rm_topdown","path":"rooms/rm_topdown/rm_topdown.yy",},},
     {"id":{"name":"collision_ladder","path":"scripts/collision_ladder/collision_ladder.yy",},},
+    {"id":{"name":"collision_regular","path":"scripts/collision_regular/collision_regular.yy",},},
     {"id":{"name":"is_on_slope","path":"scripts/is_on_slope/is_on_slope.yy",},},
     {"id":{"name":"mount_ladder","path":"scripts/mount_ladder/mount_ladder.yy",},},
+    {"id":{"name":"scrInit","path":"scripts/scrInit/scrInit.yy",},},
     {"id":{"name":"spr_block_128","path":"sprites/spr_block_128/spr_block_128.yy",},},
     {"id":{"name":"spr_block_160","path":"sprites/spr_block_160/spr_block_160.yy",},},
     {"id":{"name":"spr_block_192","path":"sprites/spr_block_192/spr_block_192.yy",},},

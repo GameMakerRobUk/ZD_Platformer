@@ -4,14 +4,6 @@ up       = keyboard_check(vk_up)    or keyboard_check(ord("W"));
 down     = keyboard_check(vk_down)  or keyboard_check(ord("S"));
 jump     = keyboard_check_pressed(vk_space);
 
-if (state == "jumping"){
-	mount_ladder();
-}
-
-if (state == "regular"){
-	mount_ladder()
-}
-
 if (state == "slope"){
 	var _xsign = right - left;
 	repeat(abs(walk_speed * _xsign)){
@@ -111,43 +103,18 @@ if (state == "climbing"){
 // are pixels in the movement.
 // This checks for left/right.
 
+//if (state == "regular"){
+//	collision_regular();
+//}
+
+if (state == "jumping"){
+	mount_ladder();
+	collision_regular();
+}
+
 if (state == "regular"){
-	repeat(abs(walk_speed * (right - left)))
-	{
-	    can_move = true;
-	    highest_z = 0;
-    
-	    // Here we go through each block, and check if it's height is lower than 
-	    // our player's z-value. If it is, then it's walkable, and the player's
-	    // "ground" is now at the block's height. 
-		
-		
-		with (par_block){
-			is_player_colliding_horizontal(other.id)
-	    }
-
-	    // If the previous checks still allow our player to move, then do it!
-	    if can_move x += (right - left);
-	}
-
-	// To ensure pixel-perfect collision, we repeat this code as many times as there
-	// are pixels in the movement.
-	// This checks for up/down.
-	repeat(abs(walk_speed * (down - up))){
-	    can_move = true;
-	    highest_z = 0;
-    
-	    // Here we go through each block, and check if it's height is lower than 
-	    // our player's z-value. If it is, then it's walkable, and the player's
-	    // "ground" is now at the block's height. 
-	    with (par_block){
-			is_player_colliding_vertical(other.id);
-		}
-
-	    // If the previous checks still allow our player to move, then do it!
-	    if can_move y += (down - up);
-	}
-
+	mount_ladder();
+	collision_regular();
 }
 
 // If the user is pressing the JUMP BUTTON and our player is on the ground,
