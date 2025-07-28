@@ -4,23 +4,12 @@ up       = keyboard_check(vk_up)    or keyboard_check(ord("W"));
 down     = keyboard_check(vk_down)  or keyboard_check(ord("S"));
 jump     = keyboard_check_pressed(vk_space);
 
-if (state == "regular"){
-	//Ladders
-	var _ladder = collision_ladder();
+if (state == "jumping"){
+	mount_ladder();
+}
 
-	if (_ladder != noone){
-		show_climb_button = true;
-		
-		if (keyboard_check_pressed(ord("E"))){	
-			state = "climbing";
-			lowest_z = _ladder.ground;
-			current_ladder = _ladder;
-			show_debug_message("Mounting ladder | " + string({lowest_z : lowest_z, z : z, z_ground : z_ground, y : y, state : state}))
-			exit;
-		}
-	}else{
-		show_climb_button = false;	
-	}
+if (state == "regular"){
+	mount_ladder()
 }
 
 if (state == "slope"){
@@ -134,25 +123,7 @@ if (state == "regular"){
 		
 		
 		with (par_block){
-			if place_meeting(x - (other.right - other.left), y, other){
-				if (object_get_parent(object_index) == par_slope){
-					show_debug_message("hitting slope");
-					other.current_slope = id;
-					other.state = "slope";
-					exit;
-				}
-				if other.z >= height{
-					other.can_move = true;
-	                if height > other.highest_z{
-						other.z_ground = height;
-						other.highest_z = height;   
-	                }
-	            }else{
-					other.can_move = false;
-					break;
-	            }
-            
-	        }
+			is_player_colliding_horizontal(other.id)
 	    }
 
 	    // If the previous checks still allow our player to move, then do it!
@@ -170,18 +141,7 @@ if (state == "regular"){
 	    // our player's z-value. If it is, then it's walkable, and the player's
 	    // "ground" is now at the block's height. 
 	    with (par_block){
-			if place_meeting(x, y - (other.down - other.up), other){
-				if other.z >= height{
-	                other.can_move = true;
-	                if height > other.highest_z{
-	                    other.z_ground = height;
-	                    other.highest_z = height;   
-	                }
-				}else{
-					other.can_move = false;
-		            break;
-				}
-			}
+			is_player_colliding_vertical(other.id);
 		}
 
 	    // If the previous checks still allow our player to move, then do it!
@@ -195,7 +155,7 @@ if (state == "regular"){
 if (jump && z == z_ground){
 	show_debug_message("Jumping")
     z_speed = jump_speed;
-	state = "regular";
+	state = "jumping";
 }
     
 // The next few checks regulate speed and gravity along the z-axis.

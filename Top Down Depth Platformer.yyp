@@ -57,6 +57,7 @@
     {"id":{"name":"rm_topdown","path":"rooms/rm_topdown/rm_topdown.yy",},},
     {"id":{"name":"collision_ladder","path":"scripts/collision_ladder/collision_ladder.yy",},},
     {"id":{"name":"is_on_slope","path":"scripts/is_on_slope/is_on_slope.yy",},},
+    {"id":{"name":"mount_ladder","path":"scripts/mount_ladder/mount_ladder.yy",},},
     {"id":{"name":"spr_block_128","path":"sprites/spr_block_128/spr_block_128.yy",},},
     {"id":{"name":"spr_block_160","path":"sprites/spr_block_160/spr_block_160.yy",},},
     {"id":{"name":"spr_block_192","path":"sprites/spr_block_192/spr_block_192.yy",},},
