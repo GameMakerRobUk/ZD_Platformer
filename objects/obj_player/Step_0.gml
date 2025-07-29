@@ -5,56 +5,56 @@ down     = keyboard_check(vk_down)  or keyboard_check(ord("S"));
 jump     = keyboard_check_pressed(vk_space);
 
 if (state == "slope"){
-	//var _xsign = right - left;
-	//repeat(abs(walk_speed * _xsign)){
-	//	if (place_meeting(bbox_left + _xsign, y, par_slope) || place_meeting(bbox_right + _xsign, y, par_slope)){
-	//		x += _xsign;	
+	var _xsign = right - left;
+	repeat(abs(walk_speed * _xsign)){
+		if (place_meeting(bbox_left + _xsign, y, par_slope) || place_meeting(bbox_right + _xsign, y, par_slope)){
+			x += _xsign;	
 			
-	//		//Calculate z based on player x position relative to slope
-	//		var _x_diff = (x - current_slope.x);
-	//		var _x_perc = _x_diff / sprite_get_width(current_slope.sprite_index);
-	//		var _z = clamp(current_slope.height * _x_perc, current_slope.ground, current_slope.height);
+			//Calculate z based on player x position relative to slope
+			var _x_diff = (x - current_slope.x);
+			var _x_perc = _x_diff / sprite_get_width(current_slope.sprite_index);
+			var _z = clamp(current_slope.height * _x_perc, current_slope.ground, current_slope.height);
 			
-	//		//show_debug_message("_x_diff: " + string(_x_diff) + " | _x_perc: " + string(_x_perc) + " | _z: " + string(_z));
+			//show_debug_message("_x_diff: " + string(_x_diff) + " | _x_perc: " + string(_x_perc) + " | _z: " + string(_z));
 			
-	//		z = current_slope.ground + _z;
-	//		z_ground = z;
+			z = current_slope.ground + _z;
+			z_ground = z;
 			
-	//		//Exit slope
-	//		if (_xsign == 1){
-	//			if (bbox_left > current_slope.bbox_right){
-	//				show_debug_message("exiting slope moving right")
-	//				state = "regular";
-	//				exit;
-	//			}
-	//		}
-	//		if (_xsign == -1){
-	//			if (bbox_right < current_slope.bbox_left){
-	//				state = "regular";
-	//				z = ceil(z);
-	//				exit;
-	//			}
-	//		}
+			//Exit slope
+			if (_xsign == 1){
+				if (bbox_left > current_slope.bbox_right){
+					show_debug_message("exiting slope moving right")
+					state = "regular";
+					exit;
+				}
+			}
+			if (_xsign == -1){
+				if (bbox_right < current_slope.bbox_left){
+					state = "regular";
+					z = ceil(z);
+					exit;
+				}
+			}
 			
-	//	}else{
-	//		show_debug_message("setting state to regular from slope")
-	//		state = "regular";	
-	//	}
-	//}
+		}else{
+			show_debug_message("setting state to regular from slope")
+			state = "regular";	
+		}
+	}
 	
-	//var _ysign = down - up;
+	var _ysign = down - up;
 	
-	//repeat (abs(walk_speed * _ysign)){
-	//	y += _ysign;
+	repeat (abs(walk_speed * _ysign)){
+		y += _ysign;
 		
-	//	var _on_slope = is_on_slope(current_slope)
+		var _on_slope = is_on_slope(current_slope)
 		
-	//	if (!_on_slope){
-	//		show_debug_message("no longer on slope");
-	//		state = "regular";
-	//		z_ground = 0; //@Rob this might need to be updated for slopes on higher planes
-	//	}
-	//}
+		if (!_on_slope){
+			show_debug_message("no longer on slope");
+			state = "regular";
+			z_ground = 0; //@Rob this might need to be updated for slopes on higher planes
+		}
+	}
 }
 
 if (state == "climbing"){
@@ -126,8 +126,7 @@ if (jump && z == z_ground){
 }
     
 // The next few checks regulate speed and gravity along the z-axis.
-z += z_speed;
-z_speed -= z_speed_gravity;
+run_gravity();
 
 // ... and make sure not to fall through the ground!
 if z <= z_ground

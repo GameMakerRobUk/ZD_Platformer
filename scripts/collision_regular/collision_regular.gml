@@ -10,9 +10,11 @@ function is_player_colliding_horizontal_slope(_player){
 			return false;	
 		}
 		
-		//_player.current_slope = id;
-		//_player.state = "slope";
-		//exit;
+		if (_player.z == _z){
+			_player.current_slope = id;
+			_player.state = "slope";
+			exit;
+		}
 		_player.can_move = false;
 		return true;
 		
@@ -51,9 +53,11 @@ function is_player_colliding_vertical_slope(_player){
 			return false;	
 		}
 		
-		//_player.current_slope = id;
-		//_player.state = "slope";
-		//exit;
+		if (_player.z == _z){
+			_player.current_slope = id;
+			_player.state = "slope";
+			exit;
+		}
 		
 		_player.can_move = false;
 		return true;

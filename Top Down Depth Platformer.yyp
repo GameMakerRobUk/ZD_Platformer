@@ -61,6 +61,7 @@
     {"id":{"name":"collision_regular","path":"scripts/collision_regular/collision_regular.yy",},},
     {"id":{"name":"is_on_slope","path":"scripts/is_on_slope/is_on_slope.yy",},},
     {"id":{"name":"mount_ladder","path":"scripts/mount_ladder/mount_ladder.yy",},},
+    {"id":{"name":"run_gravity","path":"scripts/run_gravity/run_gravity.yy",},},
     {"id":{"name":"scrInit","path":"scripts/scrInit/scrInit.yy",},},
     {"id":{"name":"spr_block_128","path":"sprites/spr_block_128/spr_block_128.yy",},},
     {"id":{"name":"spr_block_160","path":"sprites/spr_block_160/spr_block_160.yy",},},
