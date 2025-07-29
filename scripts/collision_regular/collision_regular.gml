@@ -1,3 +1,121 @@
+function is_player_colliding_horizontal_slope(_player){
+	if place_meeting(x - (_player.right - _player.left), y, _player){
+		
+		var _x_diff = (_player.x - x);
+		var _x_perc = _x_diff / sprite_get_width(sprite_index);
+		var _z = clamp(height * _x_perc, ground, height);
+		
+		//if player z is greater than _z then there's no collision
+		if (_player.z > _z){
+			return false;	
+		}
+		
+		//_player.current_slope = id;
+		//_player.state = "slope";
+		//exit;
+		_player.can_move = false;
+		return true;
+		
+		//if (object_get_parent(object_index) == par_slope){
+		//	show_debug_message("hitting slope");
+		//	_player.current_slope = id;
+		//	_player.state = "slope";
+		//	exit;
+		//	return true;
+		//}
+		
+		//if _player.z >= height{
+		//	_player.can_move = true;
+	    //    if height > _player.highest_z{
+		//		_player.z_ground = height;
+		//		_player.highest_z = height;   
+	    //    }
+		//	return false;
+	    //}
+			
+		//_player.can_move = false;
+		//return true;
+		////break;
+	}	
+}
+
+function is_player_colliding_vertical_slope(_player){
+	if place_meeting(x, y - (_player.down - _player.up), _player){
+		
+		var _x_diff = (_player.x - x);
+		var _x_perc = _x_diff / sprite_get_width(sprite_index);
+		var _z = clamp(height * _x_perc, ground, height);
+		
+		//if player z is greater than _z then there's no collision
+		if (_player.z > _z){
+			return false;	
+		}
+		
+		//_player.current_slope = id;
+		//_player.state = "slope";
+		//exit;
+		
+		_player.can_move = false;
+		return true;
+		//if _player.z >= height{
+	    //    _player.can_move = true;
+	    //    if height > _player.highest_z{
+	    //        _player.z_ground = height;
+	    //        _player.highest_z = height;   
+	    //    }
+		//	return false;
+		//}
+		//_player.can_move = false;
+		//return true;
+	}	
+}
+
+function is_player_colliding_horizontal_block(_player){
+	//show_debug_message("block is_player_colliding_vertical")
+	if place_meeting(x - (_player.right - _player.left), y, _player){
+		
+		if (object_get_parent(object_index) == par_slope){
+			show_debug_message("hitting slope");
+			_player.current_slope = id;
+			_player.state = "slope";
+			exit;
+			return true;
+		}
+		
+		if _player.z >= height{
+			_player.can_move = true;
+	        if height > _player.highest_z{
+				_player.z_ground = height;
+				_player.highest_z = height;   
+	        }
+			return false;
+	    }
+			
+		_player.can_move = false;
+		return true;
+		//break;
+	}	
+}
+
+function is_player_colliding_vertical_block(_player){
+	//show_debug_message("block is_player_colliding_vertical")
+	if place_meeting(x, y - (_player.down - _player.up), _player){
+		if _player.z >= height{
+	        _player.can_move = true;
+	        if height > _player.highest_z{
+	            _player.z_ground = height;
+	            _player.highest_z = height;   
+	        }
+			return false;
+		}
+		_player.can_move = false;
+		return true;
+		//break;
+	}	
+}
+
+
+
 function collision_regular(){
 	repeat(abs(walk_speed * (right - left))){
 	    can_move = true;
@@ -8,7 +126,7 @@ function collision_regular(){
 	    // "ground" is now at the block's height. 
 		
 		with (par_block){
-			if is_player_colliding_horizontal(other.id){
+			if collision_horizontal(other.id){
 				break;	
 			}
 	    }
@@ -28,7 +146,7 @@ function collision_regular(){
 	    // our player's z-value. If it is, then it's walkable, and the player's
 	    // "ground" is now at the block's height. 
 	    with (par_block){
-			if is_player_colliding_vertical(other.id){
+			if collision_vertical(other.id){
 				break;	
 			}
 		}
