@@ -126,7 +126,7 @@ if (jump && z == z_ground){
 }
     
 // The next few checks regulate speed and gravity along the z-axis.
-run_gravity();
+run_gravity(id);
 
 // ... and make sure not to fall through the ground!
 if z <= z_ground
@@ -138,7 +138,7 @@ if z <= z_ground
 	
 	if (place_meeting(x, y, par_slope)){
 		
-		if (state == "regular"){
+		if (state != "slope"){
 			var _slope = instance_place(x, y, par_slope);
 			
 			if (!is_on_slope(_slope)){
