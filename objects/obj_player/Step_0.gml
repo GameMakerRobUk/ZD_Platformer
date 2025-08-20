@@ -15,8 +15,6 @@ if (state == "slope"){
 			var _x_perc = _x_diff / sprite_get_width(current_slope.sprite_index);
 			var _z = clamp(current_slope.height * _x_perc, current_slope.ground, current_slope.height);
 			
-			//show_debug_message("_x_diff: " + string(_x_diff) + " | _x_perc: " + string(_x_perc) + " | _z: " + string(_z));
-			
 			z = current_slope.ground + _z;
 			z_ground = z;
 			
@@ -120,7 +118,7 @@ if (state == "regular"){
 // If the user is pressing the JUMP BUTTON and our player is on the ground,
 // then do a jump!
 if (jump && z == z_ground){
-	show_debug_message("Jumping")
+	show_debug_message("Jumping | state: " + state)
     z_speed = jump_speed;
 	state = "jumping";
 }

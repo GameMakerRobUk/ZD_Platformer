@@ -5,12 +5,17 @@ function is_player_colliding_horizontal_slope(_player){
 		var _x_perc = _x_diff / sprite_get_width(sprite_index);
 		var _z = clamp(height * _x_perc, ground, height);
 		
+		if (depth < _player.depth){
+			_player.depth = depth - 1;	
+		}
+		
 		//if player z is greater than _z then there's no collision
 		if (_player.z > _z){
 			return false;	
 		}
 		
 		if (_player.z == _z){
+			show_debug_message("Setting state to slope from is_player_colliding_horizontal_slope")
 			_player.current_slope = id;
 			_player.state = "slope";
 			exit;
@@ -43,10 +48,14 @@ function is_player_colliding_horizontal_slope(_player){
 
 function is_player_colliding_vertical_slope(_player){
 	if place_meeting(x, y - (_player.down - _player.up), _player){
-		
+		//show_debug_message("player colliding with slope vertically");
 		var _x_diff = (_player.x - x);
 		var _x_perc = _x_diff / sprite_get_width(sprite_index);
 		var _z = clamp(height * _x_perc, ground, height);
+		
+		if (depth < _player.depth){
+			_player.depth = depth - 1;	
+		}
 		
 		//if player z is greater than _z then there's no collision
 		if (_player.z > _z){
@@ -54,6 +63,7 @@ function is_player_colliding_vertical_slope(_player){
 		}
 		
 		if (_player.z == _z){
+			show_debug_message("Setting state to slope from is_player_colliding_vertical_slope")
 			_player.current_slope = id;
 			_player.state = "slope";
 			exit;
@@ -82,6 +92,7 @@ function is_player_colliding_horizontal_block(_player){
 			show_debug_message("hitting slope");
 			_player.current_slope = id;
 			_player.state = "slope";
+			show_debug_message("Setting state to slope from is_player_colliding_horizontal_block")
 			exit;
 			return true;
 		}
