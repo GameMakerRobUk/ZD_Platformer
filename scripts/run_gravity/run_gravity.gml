@@ -1,5 +1,8 @@
 function run_gravity(_player){
-	show_debug_message("run_gravity");
+	if (state == "jumping"){
+		exit;	
+	}
+	//show_debug_message("run_gravity");
 	repeat abs(z_speed){
 		with par_slope{
 			if place_meeting(x, y, _player){
@@ -24,6 +27,7 @@ function run_gravity(_player){
 		}
 		
 		z += sign(z_speed);
+		show_debug_message("gravity running, z: " + string(z))
 	}
 	
 	z_speed -= z_speed_gravity;

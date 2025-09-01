@@ -66,6 +66,7 @@
     {"name":"inst_48FDB777","path":"rooms/rm_topdown/rm_topdown.yy",},
     {"name":"inst_3E036BD2","path":"rooms/rm_topdown/rm_topdown.yy",},
     {"name":"inst_4CA1628B","path":"rooms/rm_topdown/rm_topdown.yy",},
+    {"name":"inst_70F83C7D","path":"rooms/rm_topdown/rm_topdown.yy",},
   ],
   "isDnd":false,
   "layers":[
@@ -132,6 +133,7 @@
         {"$GMRInstance":"v2","%Name":"inst_48FDB777","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_48FDB777","objectId":{"name":"obj_bridge_128","path":"objects/obj_bridge_128/obj_bridge_128.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":480.0,"y":896.0,},
         {"$GMRInstance":"v2","%Name":"inst_3E036BD2","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_3E036BD2","objectId":{"name":"obj_bridge_128","path":"objects/obj_bridge_128/obj_bridge_128.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":480.0,"y":1024.0,},
         {"$GMRInstance":"v2","%Name":"inst_4CA1628B","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_4CA1628B","objectId":{"name":"obj_block_128","path":"objects/obj_block_128/obj_block_128.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":480.0,"y":1152.0,},
+        {"$GMRInstance":"v2","%Name":"inst_70F83C7D","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_70F83C7D","objectId":{"name":"parJump","path":"objects/parJump/parJump.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":2.0,"scaleY":4.0,"x":352.0,"y":640.0,},
       ],"layers":[],"name":"Instances","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
     {"$GMRBackgroundLayer":"","%Name":"Background","animationFPS":15.0,"animationSpeedType":0,"colour":4282141760,"depth":100,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"hspeed":0.0,"htiled":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"Background","properties":[],"resourceType":"GMRBackgroundLayer","resourceVersion":"2.0","spriteId":null,"stretch":false,"userdefinedAnimFPS":false,"userdefinedDepth":false,"visible":true,"vspeed":0.0,"vtiled":false,"x":0,"y":0,},
   ],

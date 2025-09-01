@@ -1,5 +1,5 @@
 function is_player_colliding_horizontal_slope(_player){
-	show_debug_message("is_player_colliding_horizontal_slope")
+	//show_debug_message("is_player_colliding_horizontal_slope")
 	if place_meeting(x - (_player.right - _player.left), y, _player){
 		
 		var _x_diff = (_player.x - x);
@@ -50,7 +50,7 @@ function is_player_colliding_horizontal_slope(_player){
 
 function is_player_colliding_vertical_slope(_player){
 	if place_meeting(x, y - (_player.down - _player.up), _player){
-		show_debug_message("player colliding with slope vertically");
+		//show_debug_message("player colliding with slope vertically");
 		var _x_diff = (_player.x - x);
 		var _x_perc = _x_diff / sprite_get_width(sprite_index);
 		var _z = clamp(height * _x_perc, ground, height);
