@@ -1,4 +1,5 @@
 function run_gravity(_player){
+	show_debug_message("run_gravity");
 	repeat abs(z_speed){
 		with par_slope{
 			if place_meeting(x, y, _player){
