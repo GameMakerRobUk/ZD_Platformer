@@ -8,9 +8,11 @@ function run_gravity(_player){
 				
 				show_debug_message("player_slope_z: " + string(_z) + " | current z: " + string(_player.z))
 		
-				if (_player.z <= _z){
+				if (_player.z < _z){
 					_player.current_slope = id;
 					_player.state = "slope";
+					
+					show_debug_message("Setting state to slope from run_gravity")
 					_player.z = _z;
 					_player.z_ground = _z;
 					//show_debug_message("Setting state to slope from run_gravity")

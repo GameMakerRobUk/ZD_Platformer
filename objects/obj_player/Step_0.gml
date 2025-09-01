@@ -4,6 +4,16 @@ up       = keyboard_check(vk_up)    or keyboard_check(ord("W"));
 down     = keyboard_check(vk_down)  or keyboard_check(ord("S"));
 jump     = keyboard_check_pressed(vk_space);
 
+#region jump
+// If the user is pressing the JUMP BUTTON and our player is on the ground,
+// then do a jump!
+if (jump && z == z_ground){
+	show_debug_message("Jumping | state: " + state)
+    z_speed = jump_speed;
+	state = "jumping";
+}
+#endregion
+
 if (state == "slope"){
 	var _xsign = right - left;
 	repeat(abs(walk_speed * _xsign)){
@@ -14,8 +24,9 @@ if (state == "slope"){
 			var _x_diff = (x - current_slope.x);
 			var _x_perc = _x_diff / sprite_get_width(current_slope.sprite_index);
 			var _z = clamp(current_slope.height * _x_perc, current_slope.ground, current_slope.height);
-			
+		
 			z = current_slope.ground + _z;
+	
 			z_ground = z;
 			
 			//Exit slope
@@ -115,13 +126,15 @@ if (state == "regular"){
 	collision_regular();
 }
 
-// If the user is pressing the JUMP BUTTON and our player is on the ground,
-// then do a jump!
-if (jump && z == z_ground){
-	show_debug_message("Jumping | state: " + state)
-    z_speed = jump_speed;
-	state = "jumping";
-}
+//#region jump
+//// If the user is pressing the JUMP BUTTON and our player is on the ground,
+//// then do a jump!
+//if (jump && z == z_ground){
+//	show_debug_message("Jumping | state: " + state)
+//    z_speed = jump_speed;
+//	state = "jumping";
+//}
+//#endregion
     
 // The next few checks regulate speed and gravity along the z-axis.
 run_gravity(id);
