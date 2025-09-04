@@ -27,7 +27,7 @@ function run_gravity(_player){
 		}
 		
 		z += sign(z_speed);
-		show_debug_message("gravity running, z: " + string(z))
+		//show_debug_message("gravity running, z: " + string(z))
 	}
 	
 	z_speed -= z_speed_gravity;
