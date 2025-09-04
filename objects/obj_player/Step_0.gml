@@ -8,15 +8,25 @@ jump     = keyboard_check_pressed(vk_space);
 // If the user is pressing the JUMP BUTTON and our player is on the ground,
 // then do a jump!
 if (jump && z == z_ground){
-	state = "jumping"
-	timer = 0;
+	//state = "jumping"
+	//timer = 0;
 	
-	start_x = x;
-	start_z = z;
+	//start_x = x;
+	//start_z = z;
 	
+	//Check to see if there's somewhere to jump to based on the player direction
 	var _jump_inst = instance_position(x, y, parJump);
 	if (_jump_inst != noone){
-		//Check to see if there's somewhere to jump to based on the player direction
+		
+		state = "jumping"
+		timer = 0;
+	
+		start_x = x;
+		start_y = y;
+		start_z = z;
+		
+		//Get the jump curve direction based on the jump image_index [r,d,l,u]
+		curve = _jump_inst.curves[_jump_inst.image_index];
 		
 		//Make the player/followers move to the correct position before jumping, then jump.
 		//show_debug_message("Jumping | state: " + state)
@@ -144,8 +154,13 @@ if (state == "regular"){
 run_gravity(id);
 
 // ... and make sure not to fall through the ground! @Rob maybe replace this code
-if z <= z_ground
+if (z <= z_ground)
 {
+	//show_debug_message("landed")
+	
+	if (state == "falling"){
+		state = "regular";	
+	}
     z = z_ground;
     z_speed = 0;
 	
@@ -184,17 +199,20 @@ if (current_slope != noone && state == "slope"){
 
 if (state == "jumping"){
 	if (timer <= 1){
-		var _channel_z = animcurve_get_channel(acJumpRight, "z");
+		var _channel_z = animcurve_get_channel(curve, "z");
 		z = start_z + animcurve_channel_evaluate(_channel_z, timer);
 		
-		var _channel_x = animcurve_get_channel(acJumpRight, "x");
+		var _channel_x = animcurve_get_channel(curve, "x");
 		x = start_x + animcurve_channel_evaluate(_channel_x, timer);
 		
-		show_debug_message("z: " + string(z) + 
-											"\ntimer: " + string(timer) + 
-											"\neval: " + string(animcurve_channel_evaluate(_channel_z, timer)) + 
-											"\nstart_z: " + string(start_z) +
-											"\nz: " + string(z));
+		var _channel_y = animcurve_get_channel(curve, "y");
+		y = start_y + animcurve_channel_evaluate(_channel_y, timer);
+		
+		//show_debug_message("z: " + string(z) + 
+		//									"\ntimer: " + string(timer) + 
+		//									"\neval: " + string(animcurve_channel_evaluate(_channel_z, timer)) + 
+		//									"\nstart_z: " + string(start_z) +
+		//									"\nz: " + string(z));
 											
 		timer += 0.1;
 		if (timer >= 1){

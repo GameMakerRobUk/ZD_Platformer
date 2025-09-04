@@ -18,6 +18,9 @@
     {"name":"Timelines","order":7,"path":"folders/Timelines.yy",},
   ],
   "ResourceOrderSettings":[
+    {"name":"acJumpDown","order":3,"path":"animcurves/acJumpDown/acJumpDown.yy",},
+    {"name":"acJumpLeft","order":1,"path":"animcurves/acJumpLeft/acJumpLeft.yy",},
+    {"name":"acJumpUp","order":2,"path":"animcurves/acJumpUp/acJumpUp.yy",},
     {"name":"obj_block_128","order":5,"path":"objects/obj_block_128/obj_block_128.yy",},
     {"name":"obj_block_160","order":6,"path":"objects/obj_block_160/obj_block_160.yy",},
     {"name":"obj_block_192","order":7,"path":"objects/obj_block_192/obj_block_192.yy",},

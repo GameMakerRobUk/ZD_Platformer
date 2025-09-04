@@ -2,6 +2,9 @@ function run_gravity(_player){
 	if (state == "jumping"){
 		exit;	
 	}
+	
+	falling = true;
+	
 	//show_debug_message("run_gravity");
 	repeat abs(z_speed){
 		with par_slope{
@@ -19,13 +22,15 @@ function run_gravity(_player){
 					show_debug_message("Setting state to slope from run_gravity")
 					_player.z = _z;
 					_player.z_ground = _z;
-					//show_debug_message("Setting state to slope from run_gravity")
-					z_speed = 0;
+					//show_debug_mes
+					other.falling = false;
 					exit;
 				}
 			}
 		}
 		
+		//show_debug_message("falling: " + string(falling))
+		state = "falling"
 		z += sign(z_speed);
 		//show_debug_message("gravity running, z: " + string(z))
 	}

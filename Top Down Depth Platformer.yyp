@@ -40,7 +40,10 @@
   },
   "name":"Top Down Depth Platformer",
   "resources":[
+    {"id":{"name":"acJumpDown","path":"animcurves/acJumpDown/acJumpDown.yy",},},
+    {"id":{"name":"acJumpLeft","path":"animcurves/acJumpLeft/acJumpLeft.yy",},},
     {"id":{"name":"acJumpRight","path":"animcurves/acJumpRight/acJumpRight.yy",},},
+    {"id":{"name":"acJumpUp","path":"animcurves/acJumpUp/acJumpUp.yy",},},
     {"id":{"name":"obj_block_128","path":"objects/obj_block_128/obj_block_128.yy",},},
     {"id":{"name":"obj_block_160","path":"objects/obj_block_160/obj_block_160.yy",},},
     {"id":{"name":"obj_block_192","path":"objects/obj_block_192/obj_block_192.yy",},},
