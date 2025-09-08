@@ -1,0 +1,15 @@
+!!! Bugs !!!
+
+- Moving vertically along the bottom of a slope moves you at double speed
+- Action button for ladders appears when it shouldnt (eg if you are behind a block
+  that the ladder is in front of)
+
+
+!!! Planned Features !!!
+
+- Silhouette of player when obscured by obstacles
+- Limit player movement when moving horizontally on ladders.
+  EG bbox_left of player should not exceed bbox_left of ladder. If touching multiple ladders, 
+  the closest bbox should be used (eg should not exceed any bbox even fractionally)
+- Player Shadow improvement - let's have the ability to draw partial shadows where they should
+  be, eg split between different platforms

@@ -1,17 +1,20 @@
 {
   "$GMObject":"",
-  "%Name":"parJump",
+  "%Name":"objJumpLong",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"parJump",
+  "name":"objJumpLong",
   "overriddenProperties":[],
   "parent":{
     "name":"Jumping",
     "path":"folders/Objects/Jumping.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"parJump",
+    "path":"objects/parJump/parJump.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -30,8 +33,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_jump",
-    "path":"sprites/spr_jump/spr_jump.yy",
+    "name":"spr_jump_long",
+    "path":"sprites/spr_jump_long/spr_jump_long.yy",
   },
   "spriteMaskId":null,
   "visible":true,

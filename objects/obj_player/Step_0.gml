@@ -5,14 +5,8 @@ down     = keyboard_check(vk_down)  or keyboard_check(ord("S"));
 jump     = keyboard_check_pressed(vk_space);
 
 #region jump
-// If the user is pressing the JUMP BUTTON and our player is on the ground,
-// then do a jump!
+
 if (jump && z == z_ground){
-	//state = "jumping"
-	//timer = 0;
-	
-	//start_x = x;
-	//start_z = z;
 	
 	//Check to see if there's somewhere to jump to based on the player direction
 	var _jump_inst = instance_position(x, y, parJump);
@@ -26,12 +20,10 @@ if (jump && z == z_ground){
 		start_z = z;
 		
 		//Get the jump curve direction based on the jump image_index [r,d,l,u]
-		curve = _jump_inst.curves[_jump_inst.image_index];
-		
-		//Make the player/followers move to the correct position before jumping, then jump.
-		//show_debug_message("Jumping | state: " + state)
-	    //z_speed = jump_speed;
-		//state = "jumping";
+		curve = {
+			asset : _jump_inst.curves[_jump_inst.image_index],
+			inc : _jump_inst.inc,
+		}
 	}
 }
 #endregion
@@ -130,33 +122,16 @@ if (state == "climbing"){
 	exit;
 }
 
-//if (state == "jumping"){
-//	mount_ladder();
-//	collision_regular();
-//}
-
 if (state == "regular"){
 	mount_ladder();
 	collision_regular();
 }
-
-//#region jump
-//// If the user is pressing the JUMP BUTTON and our player is on the ground,
-//// then do a jump!
-//if (jump && z == z_ground){
-//	show_debug_message("Jumping | state: " + state)
-//    z_speed = jump_speed;
-//	state = "jumping";
-//}
-//#endregion
     
 // The next few checks regulate speed and gravity along the z-axis.
 run_gravity(id);
 
 // ... and make sure not to fall through the ground! @Rob maybe replace this code
-if (z <= z_ground)
-{
-	//show_debug_message("landed")
+if (z <= z_ground){
 	
 	if (state == "falling"){
 		state = "regular";	
@@ -164,7 +139,7 @@ if (z <= z_ground)
     z = z_ground;
     z_speed = 0;
 	
-	#region Lame Slope check code - causes a bug when at bottom of slope and moving vertically
+	#region Lame Slope check code - causes the speed bug when at bottom of slope and moving vertically?
 	
 	if (place_meeting(x, y, par_slope)){
 		
@@ -182,10 +157,6 @@ if (z <= z_ground)
 	#endregion
 }
 
-// If not on a block, then set the ground back to the floor.
-//if !place_meeting(x, y, par_block)
-//    z_ground = 0;
-
 if (state != "slope" && !place_meeting(x, y, par_block)){
     z_ground = 0;
 }
@@ -199,33 +170,27 @@ if (current_slope != noone && state == "slope"){
 
 if (state == "jumping"){
 	if (timer <= 1){
-		var _channel_z = animcurve_get_channel(curve, "z");
+		var _channel_z = animcurve_get_channel(curve.asset, "z");
 		z = start_z + animcurve_channel_evaluate(_channel_z, timer);
 		
-		var _channel_x = animcurve_get_channel(curve, "x");
+		var _channel_x = animcurve_get_channel(curve.asset, "x");
 		x = start_x + animcurve_channel_evaluate(_channel_x, timer);
 		
-		var _channel_y = animcurve_get_channel(curve, "y");
+		var _channel_y = animcurve_get_channel(curve.asset, "y");
 		y = start_y + animcurve_channel_evaluate(_channel_y, timer);
-		
-		//show_debug_message("z: " + string(z) + 
-		//									"\ntimer: " + string(timer) + 
-		//									"\neval: " + string(animcurve_channel_evaluate(_channel_z, timer)) + 
-		//									"\nstart_z: " + string(start_z) +
-		//									"\nz: " + string(z));
-											
-		timer += 0.1;
+
+		timer += curve.inc;
 		if (timer >= 1){
 	
-			//z_ground = z;
 			show_debug_message("jumping finished\nz: " + string(z));
-			state = "regular";	
+			state = "falling";	
 			
 			with par_block{
 				if (place_meeting(x, y, obj_player)){
 					show_debug_message("meeting with player, height: " + string(height) + " | z: " + string(obj_player.z))
 					if (height == obj_player.z){
 						obj_player.z_ground = height;
+						state = "regular";	
 						break;
 					}
 				}
