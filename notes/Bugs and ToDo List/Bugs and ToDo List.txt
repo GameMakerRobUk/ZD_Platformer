@@ -1,7 +1,8 @@
 !!! Bugs !!!
 
 - Moving vertically along the bottom of a slope moves you at double speed
-- Action button for ladders appears when it shouldnt (eg if you are behind a block
+- Need some smaller jumps for the smaller platforms
+* Action button for ladders appears when it shouldnt (eg if you are behind a block
   that the ladder is in front of)
 
 
