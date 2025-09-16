@@ -1,7 +1,27 @@
 #region Sprite Masking
 
+var _x1 = bbox_left;
+var _x2 = bbox_right;
+var _y1 = (y - z) - 59;
+var _y2 = _y1 + 59;
+
+draw_set_color(c_yellow);
+
+draw_rectangle(_x1, _y1, _x2, _y2, true);
+
 with par_block{
+	if (height == other.z){
+		continue;
+	}
+	if (depth > other.depth){
+		continue;	
+	}
 	
+	//draw_rectangle(bbox_left, bbox_bottom - sprite_height, bbox_right, bbox_bottom, true);
+	
+	if (!rectangle_in_rectangle(_x1, _y1, _x2, _y2, x, y - sprite_height, x + sprite_width, y)){
+		continue;
+	}
 	gpu_set_blendenable(false)
 	gpu_set_colorwriteenable(false,false,false,true);
 	draw_set_alpha(0);
